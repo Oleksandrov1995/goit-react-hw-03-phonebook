@@ -5,7 +5,7 @@ import css from '../Filter/Filter.module.css';
 
 export class Filter extends Component {
   render() {
-    const { filter, addFilter } = this.props;
+    const { filter, onChange } = this.props;
     return (
       <div className={css.filter}>
         <input
@@ -13,7 +13,7 @@ export class Filter extends Component {
           name="filter"
           className={css.filter__input}
           value={filter}
-          onChange={addFilter}
+          onChange={onChange}
           placeholder="Enter name"
         />
       </div>

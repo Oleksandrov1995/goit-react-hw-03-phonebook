@@ -25,11 +25,9 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate(prevState) {
-    const { contacts } = this.state;
-
-    if (prevState.contacts !== contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
 
@@ -49,10 +47,9 @@ export class App extends Component {
     }
   };
 
-  addFilter = event => {
-    this.setState({ filter: event.currentTarget.value });
+  addFilter = ({ target: { value } }) => {
+    this.setState(() => ({ filter: value }));
   };
-
   filteredContacts = () => {
     const { filter, contacts } = this.state;
 
@@ -77,10 +74,13 @@ export class App extends Component {
             contacts={this.filteredContacts()}
             deleteContact={this.deleteContact}
           >
-            <Filter filter={filter} addFilter={this.addFilter} />
+           
+            <Filter filter={filter} onChange={this.addFilter}/>
           </ContactList>
         </div>
       </section>
     );
   }
 }
+
+
